@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pension Wedding · Berlin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:    #f5f0e8;
+    --sand:     #e8ddd0;
+    --rust:     #b35c3a;
+    --rust-dim: #8f4929;
+    --charcoal: #1e1e1e;
+    --mid:      #5a5248;
+    --light:    #9a8f85;
+    --white:    #fdfaf6;
+    --serif:    'Cormorant Garamond', Georgia, serif;
+    --sans:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: transparent;
+    transition: background .4s, backdrop-filter .4s;
+  }
+  nav.scrolled {
+    background: rgba(245,240,232,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--sand);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+  .nav-links a {
+    font-size: .8rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--rust); }
+  .nav-cta {
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--rust);
+    padding: .6rem 1.4rem;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--rust-dim); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    background: var(--cream);
+    position: relative; z-index: 2;
+  }
+  .hero-label {
+    font-size: .72rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp .8s .2s forwards;
+  }
+  .hero-h1 {
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.07;
+    color: var(--charcoal);
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp .9s .4s forwards;
+  }
+  .hero-h1 em { font-style: italic; color: var(--rust); }
+  .hero-desc {
+    font-size: .95rem; color: var(--mid); max-width: 380px; margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp .9s .6s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; align-items: center;
+    opacity: 0; animation: fadeUp .9s .75s forwards;
+  }
+  .btn-primary {
+    display: inline-block; padding: .85rem 2.2rem;
+    background: var(--rust); color: var(--white);
+    font-family: var(--sans); font-size: .78rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; transition: background .25s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--rust-dim); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--charcoal); text-decoration: none; border-bottom: 1px solid var(--charcoal);
+    padding-bottom: .15rem; transition: color .2s, border-color .2s;
+  }
+  .btn-ghost:hover { color: var(--rust); border-color: var(--rust); }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+    opacity: 0; animation: fadeIn 1.2s .3s forwards;
+  }
+  .hero-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: sepia(8%) contrast(1.05);
+  }
+  .hero-price-badge {
+    position: absolute; bottom: 3rem; left: -2rem;
+    background: var(--rust); color: var(--white);
+    padding: 1.4rem 2rem;
+    font-family: var(--serif);
+    z-index: 5;
+    opacity: 0; animation: fadeUp .9s .9s forwards;
+  }
+  .hero-price-badge .price-num {
+    font-size: 2.6rem; font-weight: 300; line-height: 1; display: block;
+  }
+  .hero-price-badge .price-label {
+    font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+    opacity: .8;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    writing-mode: vertical-rl; font-size: .68rem; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--light); z-index: 2;
+    animation: bounce 2s infinite;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 1.5rem; padding: 0 3rem;
+    margin: 5rem 0 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--sand); }
+  .divider-text {
+    font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--light);
+    white-space: nowrap;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; padding: 6rem 3rem; max-width: 1200px; margin: 0 auto;
+  }
+  .about-text h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .about-text h2 em { font-style: italic; color: var(--rust); }
+  .about-text p { color: var(--mid); font-size: .95rem; margin-bottom: 1rem; max-width: 480px; }
+  .about-text p strong { color: var(--charcoal); font-weight: 500; }
+  .about-features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.5rem;
+  }
+  .feature-item {
+    display: flex; align-items: flex-start; gap: .8rem;
+  }
+  .feature-icon {
+    flex-shrink: 0; width: 32px; height: 32px;
+    border: 1px solid var(--sand); display: flex; align-items: center; justify-content: center;
+    color: var(--rust); font-size: 1rem;
+  }
+  .feature-text { font-size: .85rem; color: var(--mid); line-height: 1.4; }
+  .feature-text strong { display: block; color: var(--charcoal); font-weight: 500; margin-bottom: .15rem; }
+
+  .about-visual {
+    position: relative; display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .about-img-main {
+    width: 100%; height: 320px; object-fit: cover;
+    filter: sepia(5%) contrast(1.04);
+  }
+  .about-stat-row { display: flex; gap: 1.5rem; }
+  .stat-box {
+    flex: 1; background: var(--white); border: 1px solid var(--sand);
+    padding: 1.5rem; text-align: center;
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 2.4rem; font-weight: 300;
+    color: var(--rust); display: block; line-height: 1;
+  }
+  .stat-label {
+    font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--light); margin-top: .3rem;
+  }
+
+  /* ── ROOMS ── */
+  .rooms-section { padding: 5rem 3rem; background: var(--white); }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-tag {
+    font-size: .7rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: .8rem; display: block;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300; color: var(--charcoal);
+  }
+  .section-title em { font-style: italic; }
+  .rooms-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .room-card {
+    background: var(--cream); border: 1px solid var(--sand);
+    overflow: hidden; transition: transform .3s, box-shadow .3s;
+    position: relative;
+  }
+  .room-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+  .room-card-img { width: 100%; height: 200px; object-fit: cover; display: block; }
+  .room-card-body { padding: 1.5rem; }
+  .room-card-name {
+    font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+    margin-bottom: .4rem; color: var(--charcoal);
+  }
+  .room-card-detail { font-size: .82rem; color: var(--light); }
+  .room-card-price {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--rust); color: var(--white);
+    padding: .35rem .7rem; font-size: .7rem;
+    letter-spacing: .1em;
+  }
+
+  /* ── PRICES ── */
+  .prices-section {
+    padding: 6rem 3rem;
+    background: var(--charcoal); color: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    max-width: 100%; overflow: hidden; position: relative;
+  }
+  .prices-section::before {
+    content: '35';
+    position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+    font-family: var(--serif); font-size: 22vw; font-weight: 300;
+    color: rgba(255,255,255,.03); line-height: 1; pointer-events: none;
+  }
+  .prices-left { position: relative; z-index: 2; }
+  .prices-left .section-tag { color: #c87a58; }
+  .prices-left .section-title { color: var(--cream); text-align: left; }
+  .price-big {
+    font-family: var(--serif); font-size: 5rem; font-weight: 300; line-height: 1;
+    color: var(--rust); margin: 2rem 0 .5rem;
+  }
+  .price-sub { font-size: .82rem; color: #8a7d72; letter-spacing: .06em; }
+  .prices-right { position: relative; z-index: 2; padding-top: 2rem; }
+  .price-table { width: 100%; border-collapse: collapse; }
+  .price-table tr { border-bottom: 1px solid rgba(255,255,255,.08); }
+  .price-table tr:last-child { border: none; }
+  .price-table td { padding: 1.1rem 0; font-size: .88rem; color: #b5a99e; }
+  .price-table td:first-child { color: var(--cream); font-weight: 400; }
+  .price-table td:last-child { text-align: right; color: #c87a58; font-family: var(--serif); font-size: 1.05rem; }
+  .price-note {
+    margin-top: 2rem; padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(255,255,255,.1);
+    font-size: .8rem; color: #8a7d72; line-height: 1.6;
+  }
+  .price-note a { color: #c87a58; }
+
+  /* ── LOCATION ── */
+  .location-section {
+    padding: 6rem 3rem; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1200px; margin: 0 auto;
+    align-items: center;
+  }
+  .location-text .section-title { text-align: left; margin-bottom: 1.5rem; }
+  .location-text p { color: var(--mid); font-size: .95rem; margin-bottom: 1.2rem; max-width: 440px; }
+  .transport-list { list-style: none; margin-top: 2rem; }
+  .transport-list li {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .9rem 0; border-bottom: 1px solid var(--sand);
+    font-size: .88rem; color: var(--mid);
+  }
+  .transport-list li:last-child { border: none; }
+  .transport-badge {
+    flex-shrink: 0; padding: .25rem .6rem;
+    background: var(--rust); color: var(--white);
+    font-size: .65rem; font-weight: 500; letter-spacing: .08em;
+  }
+  .map-placeholder {
+    background: var(--sand); height: 420px;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; gap: 1rem;
+    border: 1px solid #d4c9bb;
+  }
+  .map-placeholder svg { color: var(--rust); }
+  .map-address { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; }
+  .map-sub { font-size: .8rem; color: var(--light); letter-spacing: .1em; text-transform: uppercase; }
+  .map-link {
+    display: inline-block; margin-top: 1rem;
+    padding: .65rem 1.6rem; background: var(--rust); color: var(--white);
+    font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+    text-decoration: none; transition: background .2s;
+  }
+  .map-link:hover { background: var(--rust-dim); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    padding: 5rem 3rem 6rem;
+    background: var(--cream); text-align: center;
+  }
+  .contact-inner { max-width: 700px; margin: 0 auto; }
+  .contact-section .section-title { margin-bottom: 1rem; }
+  .contact-section .section-tag { display: block; margin-bottom: .5rem; }
+  .contact-tagline { color: var(--mid); font-size: .95rem; margin-bottom: 3.5rem; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-bottom: 3rem;
+  }
+  .contact-card {
+    background: var(--white); border: 1px solid var(--sand);
+    padding: 2rem; text-align: left;
+  }
+  .contact-card-label {
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--light); margin-bottom: .5rem;
+  }
+  .contact-card-value {
+    font-family: var(--serif); font-size: 1.35rem; font-weight: 400;
+    color: var(--charcoal); text-decoration: none; display: block;
+    transition: color .2s;
+  }
+  .contact-card-value:hover { color: var(--rust); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .35rem; }
+  .form-label { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--light); }
+  .form-input, .form-textarea {
+    border: 1px solid var(--sand); background: var(--white);
+    padding: .8rem 1rem; font-family: var(--sans); font-size: .88rem;
+    color: var(--charcoal); outline: none;
+    transition: border-color .2s;
+    resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--rust); }
+  .form-submit {
+    align-self: flex-start; padding: .9rem 2.5rem;
+    background: var(--rust); color: var(--white);
+    font-family: var(--sans); font-size: .78rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    border: none; cursor: pointer; transition: background .2s, transform .2s;
+  }
+  .form-submit:hover { background: var(--rust-dim); transform: translateY(-2px); }
+
+  /* ── LANG TOGGLE ── */
+  .lang-btn {
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    border: 1px solid rgba(30,30,30,.4); padding: .35rem .75rem;
+    background: transparent; cursor: pointer; color: var(--charcoal);
+    font-family: var(--sans); transition: color .2s, border-color .2s;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .lang-btn:hover { color: var(--rust); border-color: var(--rust); }
+  /* ── GOOGLE MAP ── */
+  .map-frame {
+    width: 100%; height: 420px; border: none; display: block;
+    filter: sepia(8%) contrast(1.04) saturate(.95);
+  }
+  /* ── IMPRESSUM MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    background: rgba(20,18,16,.7); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--white); max-width: 640px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    padding: 3rem; position: relative;
+    border-top: 4px solid var(--rust);
+    animation: fadeUp .3s ease;
+  }
+  .modal-close {
+    position: absolute; top: 1.2rem; right: 1.5rem;
+    background: none; border: none; font-size: 1.4rem;
+    cursor: pointer; color: var(--light); transition: color .2s;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--rust); }
+  .modal-box h2 {
+    font-family: var(--serif); font-size: 2rem; font-weight: 300;
+    margin-bottom: 2rem; color: var(--charcoal);
+  }
+  .modal-box h3 {
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--rust); margin: 1.8rem 0 .5rem;
+  }
+  .modal-box p, .modal-box address {
+    font-size: .88rem; color: var(--mid); line-height: 1.75;
+    font-style: normal;
+  }
+  .modal-box a { color: var(--rust); }
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal); color: #6a6058;
+    padding: 2.5rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: .78rem; letter-spacing: .06em;
+  }
+  footer a { color: #8a7d72; text-decoration: none; transition: color .2s; }
+  footer a:hover { color: var(--rust); }
+  .footer-logo { font-family: var(--serif); font-size: 1rem; color: var(--sand); }
+  .footer-links { display: flex; gap: 2rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Scroll-reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links, .nav-cta { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 55vw; min-height: 260px; }
+    .hero-left { padding: 7rem 1.8rem 4rem; }
+    .hero-price-badge { left: 1.5rem; bottom: 2rem; }
+    .about, .location-section { grid-template-columns: 1fr; }
+    .prices-section { grid-template-columns: 1fr; padding: 4rem 1.8rem; }
+    .prices-section::before { display: none; }
+    .rooms-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid, .form-row { grid-template-columns: 1fr; }
+    .about { padding: 4rem 1.8rem; }
+    .rooms-section { padding: 4rem 1.8rem; }
+    .location-section { padding: 4rem 1.8rem; }
+    .contact-section { padding: 4rem 1.8rem; }
+    footer { flex-direction: column; gap: 1.2rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+  @media (max-width: 560px) {
+    .rooms-grid { grid-template-columns: 1fr; }
+    .about-stat-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Pension Wedding</a>
+  <ul class="nav-links">
+    <li><a href="#about"   data-i18n="nav_about">Über uns</a></li>
+    <li><a href="#zimmer"  data-i18n="nav_rooms">Zimmer</a></li>
+    <li><a href="#preise"  data-i18n="nav_prices">Preise</a></li>
+    <li><a href="#lage"    data-i18n="nav_location">Lage</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()" title="Switch language">
+      <span class="flag" id="lang-flag">🇬🇧</span>
+      <span id="lang-label">EN</span>
+    </button>
+    <a href="#kontakt" class="nav-cta" data-i18n="nav_contact">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label" data-i18n="hero_label">Berlin · Wedding · Schulstraße 40</p>
+    <h1 class="hero-h1" data-i18n="hero_h1">Herzlich<br>willkommen<br>in <em>Berlin</em></h1>
+    <p class="hero-desc" data-i18n="hero_desc">Eine gepflegte Pension im Herzen von Berlin-Wedding — komplett renoviert, modern eingerichtet, mit direkter U-Bahn-Anbindung ins Zentrum.</p>
+    <div class="hero-actions">
+      <a href="#zimmer" class="btn-primary" data-i18n="hero_btn1">Zimmer ansehen</a>
+      <a href="#kontakt" class="btn-ghost"  data-i18n="hero_btn2">Anfrage senden</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1400&q=80"
+         alt="Pension Wedding Berlin" class="hero-img">
+    <div class="hero-price-badge">
+      <span class="price-num" id="hero-price-num">ab 50€</span>
+      <span class="price-label" data-i18n="hero_price_label">pro Person / Nacht</span>
+    </div>
+  </div>
+  <span class="hero-scroll" data-i18n="hero_scroll">Entdecken</span>
+</section>
+
+<!-- ABOUT -->
+<div class="section-divider">
+  <div class="divider-line"></div>
+  <span class="divider-text" data-i18n="about_divider">Über die Pension</span>
+  <div class="divider-line"></div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-text reveal">
+    <h2 data-i18n="about_h2">Komfort &amp; <em>Lage</em> im Herzen Berlins</h2>
+    <p data-i18n="about_p1">Unsere Pension liegt verkehrsgünstig an der Bundesstraße B 96 in Berlin-Wedding. Das Haus wurde von Grund auf renoviert und alle Zimmer mit neuer Einrichtung ausgestattet.</p>
+    <p data-i18n="about_p2">Ob Kurztrip, Geschäftsreise oder längerer Aufenthalt — wir bieten Ihnen eine zuverlässige, saubere Unterkunft zu einem fairen Preis. <strong>Fließendes Wasser und Kabel-TV</strong> sind in jedem Zimmer vorhanden. Etagen-Duschen und WCs stehen auf dem Flur zur Verfügung.</p>
+    <div class="about-features">
+      <div class="feature-item">
+        <div class="feature-icon">🚇</div>
+        <div class="feature-text"><strong data-i18n="feat1_title">U-Bahn direkt</strong><span data-i18n="feat1_sub">vor der Haustür</span></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📺</div>
+        <div class="feature-text"><strong data-i18n="feat2_title">Kabel-TV</strong><span data-i18n="feat2_sub">in jedem Zimmer</span></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🚿</div>
+        <div class="feature-text"><strong data-i18n="feat3_title">Etagen-Duschen</strong><span data-i18n="feat3_sub">und WC</span></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔑</div>
+        <div class="feature-text"><strong data-i18n="feat4_title">Vollrenoviert</strong><span data-i18n="feat4_sub">neue Einrichtung</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal reveal-delay-2">
+    <img src="http://www.pension-wedding.de/s/cc_images/teaserbox_2450258691.jpg?t=1433256648"
+         alt="Appartment" class="about-img-main"
+         onerror="this.style.background='#d4c9bb';this.style.height='320px';this.style.display='block'">
+    <div class="about-stat-row">
+      <div class="stat-box">
+        <span class="stat-num">9</span>
+        <span class="stat-label" data-i18n="stat_label1">Zimmer &amp; Appartments</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">10'</span>
+        <span class="stat-label" data-i18n="stat_label2">bis City-Ost &amp; West</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="stat-price-num">ab 50€</span>
+        <span class="stat-label" data-i18n="stat_label3">pro Person / Nacht</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZIMMER -->
+<section class="rooms-section" id="zimmer">
+  <div class="section-header reveal">
+    <span class="section-tag" data-i18n="rooms_tag">Unterkunft</span>
+    <h2 class="section-title" data-i18n="rooms_h2">Unsere <em>Zimmer</em></h2>
+  </div>
+  <div class="rooms-grid">
+
+    <div class="room-card reveal reveal-delay-1">
+      <img src="http://www.pension-wedding.de/s/cc_images/teaserbox_2450258649.jpg?t=1433256475"
+           alt="Einzelzimmer" class="room-card-img"
+           onerror="this.style.background='#d4c9bb';this.style.display='block'">
+      <div class="room-card-body">
+        <div class="room-card-name" data-i18n="room1_name">Einzelzimmer</div>
+        <div class="room-card-detail" data-i18n="room1_detail">Fließend Wasser · Kabel-TV · ruhige Lage</div>
+      </div>
+    </div>
+
+    <div class="room-card reveal reveal-delay-2">
+      <img src="http://www.pension-wedding.de/s/cc_images/teaserbox_2450258576.jpg?t=1433256244"
+           alt="Doppelzimmer" class="room-card-img"
+           onerror="this.style.background='#d4c9bb';this.style.display='block'">
+      <div class="room-card-body">
+        <div class="room-card-name" data-i18n="room2_name">Doppelzimmer</div>
+        <div class="room-card-detail" data-i18n="room2_detail">Fließend Wasser · Kabel-TV · komfortabel</div>
+      </div>
+    </div>
+
+    <div class="room-card reveal reveal-delay-3">
+      <img src="http://www.pension-wedding.de/s/cc_images/teaserbox_2450258642.jpg?t=1433256450"
+           alt="Mehrbettzimmer" class="room-card-img"
+           onerror="this.style.background='#d4c9bb';this.style.display='block'">
+      <div class="room-card-body">
+        <div class="room-card-name" data-i18n="room3_name">Mehrbettzimmer</div>
+        <div class="room-card-detail" data-i18n="room3_detail">Ideal für Gruppen und Reisende</div>
+      </div>
+    </div>
+
+    <div class="room-card reveal reveal-delay-1">
+      <img src="http://www.pension-wedding.de/s/cc_images/teaserbox_2450258715.jpg?t=1433256697"
+           alt="Single Appartment Eingang" class="room-card-img"
+           onerror="this.style.background='#d4c9bb';this.style.display='block'">
+      <div class="room-card-body">
+        <div class="room-card-name" data-i18n="room4_name">Single-Appartment</div>
+        <div class="room-card-detail" data-i18n="room4_detail">Eigener Eingangsbereich · mehr Privatsphäre</div>
+      </div>
+    </div>
+
+    <div class="room-card reveal reveal-delay-2">
+      <img src="http://www.pension-wedding.de/s/cc_images/teaserbox_2450258685.jpg?t=1433256614"
+           alt="Appartment Bad" class="room-card-img"
+           onerror="this.style.background='#d4c9bb';this.style.display='block'">
+      <div class="room-card-body">
+        <div class="room-card-name" data-i18n="room5_name">Doppel-Appartment</div>
+        <div class="room-card-detail" data-i18n="room5_detail">Großzügig · mit eigenem Bad</div>
+      </div>
+    </div>
+
+    <div class="room-card reveal reveal-delay-3" style="background: var(--rust); border-color: var(--rust); display: flex; align-items: center; justify-content: center; min-height: 280px;">
+      <div style="text-align: center; padding: 2rem; color: var(--white);">
+        <div style="font-family: var(--serif); font-size: 1.5rem; margin-bottom: .8rem;" data-i18n="room6_title">Anfrage &amp; Buchung</div>
+        <div style="font-size: .85rem; opacity: .8; margin-bottom: 1.5rem;" data-i18n="room6_sub">Gruppen, Messezeiträume &amp; Sonderpreise auf Anfrage</div>
+        <a href="#kontakt" class="btn-primary" style="background: var(--white); color: var(--rust);" data-i18n="room6_btn">Anfrage senden</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICES -->
+<section class="prices-section" id="preise">
+  <div class="prices-left reveal">
+    <span class="section-tag" data-i18n="prices_tag">Transparente Preise</span>
+    <h2 class="section-title" style="text-align:left; color: var(--cream);" data-i18n="prices_h2">Faire <em>Preise</em><br>ohne Überraschungen</h2>
+    <div class="price-big" id="price-big-num">50<sup style="font-size:2rem">€</sup></div>
+    <div class="price-sub" data-i18n="prices_sub">pro Person / Nacht · inkl. MwSt.</div>
+    <div class="price-note" data-i18n="prices_note">
+      Für <strong style="color: var(--cream)">Messezeiten und Feiertage</strong> gelten Sonderpreise — bitte per E-Mail anfragen:<br>
+      <a href="mailto:info@pension-wedding.de">info@pension-wedding.de</a>
+    </div>
+  </div>
+  <div class="prices-right reveal reveal-delay-2">
+    <table class="price-table">
+      <tr>
+        <td data-i18n="room1_name">Einzelzimmer</td>
+        <td><span class="price-from">ab </span>50 € / Nacht</td>
+      </tr>
+      <tr>
+        <td data-i18n="room2_name">Doppelzimmer</td>
+        <td><span class="price-from">ab </span>50 € / Person</td>
+      </tr>
+      <tr>
+        <td data-i18n="room3_name">Mehrbettzimmer</td>
+        <td><span class="price-from">ab </span>50 € / Person</td>
+      </tr>
+      <tr>
+        <td data-i18n="room4_name">Single-Appartment</td>
+        <td data-i18n="price_on_request">auf Anfrage</td>
+      </tr>
+      <tr>
+        <td data-i18n="room5_name">Doppel-Appartment</td>
+        <td data-i18n="price_on_request">auf Anfrage</td>
+      </tr>
+      <tr>
+        <td data-i18n="price_trade_fair">Messepreise</td>
+        <td data-i18n="price_on_request">auf Anfrage</td>
+      </tr>
+      <tr>
+        <td data-i18n="price_groups">Gruppenpreise</td>
+        <td data-i18n="price_on_request">auf Anfrage</td>
+      </tr>
+    </table>
+    <p style="color: #6a6058; font-size:.78rem; margin-top:1.5rem;" data-i18n="prices_foot">
+      Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Frühstück ist nicht im Preis enthalten.
+    </p>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="lage">
+  <div class="location-text">
+    <span class="section-tag" data-i18n="loc_tag">Anreise &amp; Lage</span>
+    <h2 class="section-title" data-i18n="loc_h2">Mitten in <em>Berlin</em></h2>
+    <p data-i18n="loc_p1">Die Pension Wedding liegt an der Bundesstraße B 96 in Berlin-Wedding — einem lebendigen, vielfältigen Kiez mit guter Anbindung ans gesamte Berliner Netz.</p>
+    <p data-i18n="loc_p2">Eine U-Bahn-Linie befindet sich direkt vor der Haustür und bringt Sie in wenigen Minuten in die Berliner City.</p>
+    <ul class="transport-list reveal">
+      <li><span class="transport-badge">U-Bahn</span><span data-i18n="loc_t1">Direkt vor der Haustür</span></li>
+      <li><span class="transport-badge">10 min</span><span data-i18n="loc_t2">Zoologischer Garten (City-West)</span></li>
+      <li><span class="transport-badge">10 min</span><span data-i18n="loc_t3">Friedrichstraße / Unter den Linden</span></li>
+      <li><span class="transport-badge">10 min</span><span data-i18n="loc_t4">Alexanderplatz (City-Ost)</span></li>
+    </ul>
+  </div>
+    <iframe
+      class="map-frame"
+      src="https://maps.google.com/maps?q=Schulstra%C3%9Fe+40,+13347+Berlin&hl=de&z=16&output=embed"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Pension Wedding – Schulstraße 40, Berlin">
+    </iframe>
+
+<!-- ══════════════════════════════════════════════════════════
+     EINRICHTUNGSHINWEIS — einmalig, 60 Sekunden, kostenlos
+     Sichtbar solange WEB3FORMS_KEY noch nicht gesetzt ist.
+     ══════════════════════════════════════════════════════════ -->
+<div id="setup-banner" style="display:none;
+  background:#1e1e1e; color:#f5f0e8; padding:2rem 3rem;
+  border-left:4px solid #b35c3a; font-family:'DM Sans',sans-serif;
+  font-size:.88rem; line-height:2;">
+  <strong style="font-size:1rem;">⚙ Formular aktivieren — 3 Schritte, 60 Sekunden, kostenlos</strong><br><br>
+  <strong>Schritt 1 —</strong>
+  Öffnen Sie <a href="https://web3forms.com" target="_blank" style="color:#c87a58;">web3forms.com</a>
+  und geben Sie Ihre E-Mail-Adresse ein (z.B. <em>info@pension-wedding.de</em>). Klicken Sie auf „Create Access Key".<br>
+  <strong>Schritt 2 —</strong>
+  Sie erhalten sofort eine E-Mail mit Ihrem persönlichen Schlüssel (sieht so aus:
+  <code style="background:rgba(255,255,255,.1);padding:.1rem .5rem;">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br>
+  <strong>Schritt 3 —</strong>
+  Öffnen Sie diese HTML-Datei in einem Texteditor (z.B. Notepad) und ersetzen Sie
+  <code style="background:rgba(255,255,255,.1);padding:.1rem .5rem;">IHR_SCHLUESSEL_HIER</code>
+  durch den kopierten Schlüssel. Speichern — fertig.<br><br>
+  ✅ Ab sofort landen alle Buchungsanfragen direkt in Ihrem Posteingang — ohne monatliche Kosten.
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="kontakt">
+  <div class="contact-inner">
+    <span class="section-tag" data-i18n="contact_tag">Kontakt &amp; Buchung</span>
+    <h2 class="section-title reveal" data-i18n="contact_h2">Wir freuen uns<br>auf Ihre <em>Anfrage</em></h2>
+    <p class="contact-tagline reveal" data-i18n="contact_sub">Rufen Sie uns an oder schreiben Sie uns — wir antworten schnell und unkompliziert.</p>
+
+    <div class="contact-grid reveal">
+      <div class="contact-card">
+        <div class="contact-card-label" data-i18n="contact_phone_label">Telefon</div>
+        <a href="tel:+493046797782" class="contact-card-value">+49 30 467 977 82</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label" data-i18n="contact_email_label">E-Mail</div>
+        <a href="mailto:info@pension-wedding.de" class="contact-card-value">info@pension-wedding.de</a>
+      </div>
+    </div>
+
+    <div class="contact-form reveal reveal-delay-2">
+
+      <!-- ✅ Erfolgsmeldung -->
+      <div id="form-success" style="display:none;
+        background:#f0ebe3; border:1px solid #d4c9bb; border-left:4px solid #b35c3a;
+        padding:2rem; font-size:.95rem; color:#3a3028; line-height:1.8; text-align:center;">
+        <div style="font-size:2rem; margin-bottom:.5rem;">✓</div>
+        <strong data-i18n="success_h">Vielen Dank für Ihre Anfrage!</strong><br>
+        <span data-i18n="success_p">Wir melden uns so schnell wie möglich bei Ihnen.</span><br>
+        <span style="font-size:.8rem; color:#9a8f85;" data-i18n="success_sub">Eine Bestätigung wurde an Ihre E-Mail-Adresse gesendet.</span>
+      </div>
+
+      <!-- ⚠ Fehlermeldung -->
+      <div id="form-error" style="display:none;
+        background:#fdf0ec; border:1px solid #f0c4b0; border-left:4px solid #c0392b;
+        padding:1.2rem 1.5rem; font-size:.85rem; color:#7a3020; line-height:1.6;">
+        <span data-i18n="error_msg">⚠ Senden fehlgeschlagen. Bitte schreiben Sie direkt an</span>
+        <a href="mailto:info@pension-wedding.de" style="color:#b35c3a;">info@pension-wedding.de</a>.
+      </div>
+
+      <!-- Formularfelder -->
+      <div id="form-fields">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-vorname"><span data-i18n="lbl_vorname">Vorname</span> <span style="color:var(--rust)">*</span></label>
+            <input id="f-vorname" type="text" class="form-input" placeholder="Max" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-nachname"><span data-i18n="lbl_nachname">Nachname</span> <span style="color:var(--rust)">*</span></label>
+            <input id="f-nachname" type="text" class="form-input" placeholder="Mustermann" autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-email"><span data-i18n="lbl_email">E-Mail</span> <span style="color:var(--rust)">*</span></label>
+            <input id="f-email" type="email" class="form-input" placeholder="max@beispiel.de" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-tel" data-i18n="lbl_tel">Telefon (optional)</label>
+            <input id="f-tel" type="tel" class="form-input" placeholder="+49 …" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-anreise"><span data-i18n="lbl_anreise">Anreise</span> <span style="color:var(--rust)">*</span></label>
+            <input id="f-anreise" type="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-abreise"><span data-i18n="lbl_abreise">Abreise</span> <span style="color:var(--rust)">*</span></label>
+            <input id="f-abreise" type="date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-zimmer" data-i18n="lbl_zimmer">Zimmertyp</label>
+            <select id="f-zimmer" class="form-input" style="appearance:none; cursor:pointer; background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a8f85' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\"); background-repeat:no-repeat; background-position:right 1rem center; padding-right:2.5rem;">
+              <option value="">– bitte wählen –</option>
+              <option>Einzelzimmer</option>
+              <option>Doppelzimmer</option>
+              <option>Mehrbettzimmer</option>
+              <option>Single-Appartment</option>
+              <option>Doppel-Appartment</option>
+              <option>Noch nicht sicher</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-personen" data-i18n="lbl_personen">Anzahl Personen</label>
+            <input id="f-personen" type="number" min="1" max="20" class="form-input" placeholder="z.B. 2">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-nachricht" data-i18n="lbl_nachricht">Nachricht (optional)</label>
+          <textarea id="f-nachricht" class="form-textarea" rows="4"
+            placeholder="Sonderwünsche, Anreisezeit, Messebezug …"></textarea>
+        </div>
+
+        <!-- Honeypot Spam-Schutz -->
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1">
+
+        <div style="display:flex; align-items:center; justify-content:space-between;
+          flex-wrap:wrap; gap:1rem; margin-top:.5rem;">
+          <button id="submit-btn" type="button" class="form-submit" onclick="absenden()" data-i18n="submit_btn">
+            Anfrage absenden
+          </button>
+          <span style="font-size:.72rem; color:var(--light);" data-i18n="pflicht">* Pflichtfelder</span>
+        </div>
+
+      </div><!-- /form-fields -->
+    </div>
+  </div>
+</section>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-overlay" id="impressum-modal" onclick="closeImpressum(event)">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="imp-title">
+    <button class="modal-close" onclick="document.getElementById('impressum-modal').classList.remove('open')" aria-label="Schließen">✕</button>
+
+    <h2 id="imp-title">Impressum</h2>
+
+    <h3>Angaben gemäß § 5 TMG</h3>
+    <address>
+      Pension Wedding<br>
+      Alexander Shestopal<br>
+      Schulstraße 40<br>
+      13347 Berlin<br>
+      Deutschland
+    </address>
+
+    <h3>Kontakt</h3>
+    <p>
+      Telefon: <a href="tel:+493046797782">+49 30 467 977 82</a><br>
+      Telefax: +49 30 467 977 83<br>
+      E-Mail: <a href="mailto:info@pension-wedding.de">info@pension-wedding.de</a>
+    </p>
+
+    <h3>Umsatzsteuer-ID</h3>
+    <p>
+      Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+      23/532/02068
+    </p>
+
+    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+    <p>
+      Alexander Shestopal<br>
+      Schulstraße 40, 13347 Berlin
+    </p>
+
+    <h3>Haftung für Inhalte</h3>
+    <p>
+      Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+    </p>
+
+    <h3>Haftung für Links</h3>
+    <p>
+      Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+    </p>
+
+    <h3>Urheberrecht</h3>
+    <p>
+      Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+    </p>
+
+    <h3>Datenschutz</h3>
+    <p>
+      Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.<br><br>
+      Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Pension Wedding</span>
+  <div class="footer-links">
+    <a href="#about"   data-i18n="nav_about">Über uns</a>
+    <a href="#zimmer"  data-i18n="nav_rooms">Zimmer</a>
+    <a href="#preise"  data-i18n="nav_prices">Preise</a>
+    <a href="#kontakt" data-i18n="nav_contact">Kontakt</a>
+    <a href="#" onclick="event.preventDefault(); document.getElementById('impressum-modal').classList.add('open')">Impressum</a>
+  </div>
+  <span>© 2025 Pension Wedding · Berlin</span>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   ÜBERSETZUNGEN — DE / EN
+   ══════════════════════════════════════════════════════════ */
+const T = {
+  de: {
+    nav_about:    'Über uns',
+    nav_rooms:    'Zimmer',
+    nav_prices:   'Preise',
+    nav_location: 'Lage',
+    nav_contact:  'Kontakt',
+    hero_label:   'Berlin · Wedding · Schulstraße 40',
+    hero_h1:      'Herzlich<br>willkommen<br>in <em>Berlin</em>',
+    hero_desc:    'Eine gepflegte Pension im Herzen von Berlin-Wedding — komplett renoviert, modern eingerichtet, mit direkter U-Bahn-Anbindung ins Zentrum.',
+    hero_btn1:    'Zimmer ansehen',
+    hero_btn2:    'Anfrage senden',
+    hero_price_label: 'pro Person / Nacht',
+    hero_scroll:  'Entdecken',
+    about_divider:'Über die Pension',
+    about_h2:     'Komfort &amp; <em>Lage</em> im Herzen Berlins',
+    about_p1:     'Unsere Pension liegt verkehrsgünstig an der Bundesstraße B 96 in Berlin-Wedding. Das Haus wurde von Grund auf renoviert und alle Zimmer mit neuer Einrichtung ausgestattet.',
+    about_p2:     'Ob Kurztrip, Geschäftsreise oder längerer Aufenthalt — wir bieten Ihnen eine zuverlässige, saubere Unterkunft zu einem fairen Preis. <strong>Fließendes Wasser und Kabel-TV</strong> sind in jedem Zimmer vorhanden. Etagen-Duschen und WCs stehen auf dem Flur zur Verfügung.',
+    feat1_title: 'U-Bahn direkt', feat1_sub: 'vor der Haustür',
+    feat2_title: 'Kabel-TV',      feat2_sub: 'in jedem Zimmer',
+    feat3_title: 'Etagen-Duschen',feat3_sub: 'und WC',
+    feat4_title: 'Vollrenoviert', feat4_sub: 'neue Einrichtung',
+    price_num:   'ab 50€',
+    impressum:   'Impressum',
+    stat_label2:  'bis City-Ost & West',
+    stat_label3:  'pro Person / Nacht',
+    rooms_tag:    'Unterkunft',
+    rooms_h2:     'Unsere <em>Zimmer</em>',
+    room1_name:   'Einzelzimmer',  room1_detail: 'Fließend Wasser · Kabel-TV · ruhige Lage',
+    room2_name:   'Doppelzimmer',  room2_detail: 'Fließend Wasser · Kabel-TV · komfortabel',
+    room3_name:   'Mehrbettzimmer',room3_detail: 'Ideal für Gruppen und Reisende',
+    room4_name:   'Single-Appartment', room4_detail: 'Eigener Eingangsbereich · mehr Privatsphäre',
+    room5_name:   'Doppel-Appartment', room5_detail: 'Großzügig · mit eigenem Bad',
+    room6_title:  'Anfrage &amp; Buchung',
+    room6_sub:    'Gruppen, Messezeiträume &amp; Sonderpreise auf Anfrage',
+    room6_btn:    'Anfrage senden',
+    prices_tag:   'Transparente Preise',
+    prices_h2:    'Faire <em>Preise</em><br>ohne Überraschungen',
+    prices_sub:   'pro Person / Nacht · inkl. MwSt.',
+    prices_note:  'Für <strong style="color:var(--cream)">Messezeiten und Feiertage</strong> gelten Sonderpreise — bitte per E-Mail anfragen:<br><a href="mailto:info@pension-wedding.de">info@pension-wedding.de</a>',
+    price_on_request: 'auf Anfrage',
+    price_trade_fair: 'Messepreise',
+    price_groups:     'Gruppenpreise',
+    price_from:       'ab',
+    loc_tag:      'Anreise &amp; Lage',
+    loc_h2:       'Mitten in <em>Berlin</em>',
+    loc_p1:       'Die Pension Wedding liegt an der Bundesstraße B 96 in Berlin-Wedding — einem lebendigen, vielfältigen Kiez mit guter Anbindung ans gesamte Berliner Netz.',
+    loc_p2:       'Eine U-Bahn-Linie befindet sich direkt vor der Haustür und bringt Sie in wenigen Minuten in die Berliner City.',
+    loc_t1:       'Direkt vor der Haustür',
+    loc_t2:       'Zoologischer Garten (City-West)',
+    loc_t3:       'Friedrichstraße / Unter den Linden',
+    loc_t4:       'Alexanderplatz (City-Ost)',
+    contact_tag:  'Kontakt &amp; Buchung',
+    contact_h2:   'Wir freuen uns<br>auf Ihre <em>Anfrage</em>',
+    contact_sub:  'Rufen Sie uns an oder schreiben Sie uns — wir antworten schnell und unkompliziert.',
+    contact_phone_label: 'Telefon',
+    contact_email_label: 'E-Mail',
+    lbl_vorname:  'Vorname', lbl_nachname: 'Nachname',
+    lbl_email:    'E-Mail',  lbl_tel:      'Telefon (optional)',
+    lbl_anreise:  'Anreise', lbl_abreise:  'Abreise',
+    lbl_zimmer:   'Zimmertyp', lbl_personen: 'Anzahl Personen',
+    lbl_nachricht:'Nachricht (optional)',
+    ph_vorname:   'Max',     ph_nachname:  'Mustermann',
+    ph_email:     'max@beispiel.de', ph_tel: '+49 …',
+    ph_personen:  'z.B. 2',
+    ph_nachricht: 'Sonderwünsche, Anreisezeit, Messebezug …',
+    opt0:'– bitte wählen –', opt1:'Einzelzimmer', opt2:'Doppelzimmer',
+    opt3:'Mehrbettzimmer', opt4:'Single-Appartment', opt5:'Doppel-Appartment', opt6:'Noch nicht sicher',
+    submit_btn:   'Anfrage absenden',
+    pflicht:      '* Pflichtfelder',
+    success_h:    'Vielen Dank für Ihre Anfrage!',
+    success_p:    'Wir melden uns so schnell wie möglich bei Ihnen.',
+    success_sub:  'Eine Bestätigung wurde an Ihre E-Mail-Adresse gesendet.',
+    error_msg:    '⚠ Senden fehlgeschlagen. Bitte schreiben Sie direkt an',
+  },
+  en: {
+    nav_about:    'About',
+    nav_rooms:    'Rooms',
+    nav_prices:   'Prices',
+    nav_location: 'Location',
+    nav_contact:  'Contact',
+    hero_label:   'Berlin · Wedding · Schulstraße 40',
+    hero_h1:      'Welcome<br>to our<br><em>Berlin</em> home',
+    hero_desc:    'A well-maintained guesthouse in the heart of Berlin-Wedding — fully renovated, modernly furnished, with direct U-Bahn access to the city centre.',
+    hero_btn1:    'View rooms',
+    hero_btn2:    'Send enquiry',
+    hero_price_label: 'per person / night',
+    hero_scroll:  'Discover',
+    about_divider:'About the Pension',
+    about_h2:     'Comfort &amp; <em>Location</em> in the heart of Berlin',
+    about_p1:     'Our guesthouse is conveniently situated on Bundesstraße B 96 in Berlin-Wedding. The building has been fully renovated and all rooms are furnished with new fittings.',
+    about_p2:     'Whether a short city break, business trip or longer stay — we offer reliable, clean accommodation at a fair price. <strong>Running water and cable TV</strong> are available in every room. Shared showers and toilets are on the corridor.',
+    feat1_title: 'Direct U-Bahn',  feat1_sub: 'right at the door',
+    feat2_title: 'Cable TV',       feat2_sub: 'in every room',
+    feat3_title: 'Shared showers', feat3_sub: 'and toilets',
+    feat4_title: 'Fully renovated',feat4_sub: 'new furnishings',
+    price_num:   'from 50€',
+    impressum:   'Legal notice',
+    stat_label2:  'min to City-East & West',
+    stat_label3:  'per person / night',
+    rooms_tag:    'Accommodation',
+    rooms_h2:     'Our <em>Rooms</em>',
+    room1_name:   'Single Room',    room1_detail: 'Running water · Cable TV · quiet location',
+    room2_name:   'Double Room',    room2_detail: 'Running water · Cable TV · comfortable',
+    room3_name:   'Multi-bed Room', room3_detail: 'Ideal for groups and travellers',
+    room4_name:   'Single Apartment', room4_detail: 'Separate entrance · more privacy',
+    room5_name:   'Double Apartment', room5_detail: 'Spacious · with private bathroom',
+    room6_title:  'Enquiry &amp; Booking',
+    room6_sub:    'Groups, trade fair periods &amp; special rates on request',
+    room6_btn:    'Send enquiry',
+    prices_tag:   'Transparent Pricing',
+    prices_h2:    'Fair <em>prices</em>,<br>no surprises',
+    prices_sub:   'per person / night · incl. VAT',
+    prices_note:  'Special rates apply for <strong style="color:var(--cream)">trade fairs and public holidays</strong> — please enquire by email:<br><a href="mailto:info@pension-wedding.de">info@pension-wedding.de</a>',
+    price_on_request: 'on request',
+    price_trade_fair: 'Trade fair rates',
+    price_groups:     'Group rates',
+    price_from:       'from',
+    loc_tag:      'Getting Here',
+    loc_h2:       'In the heart of <em>Berlin</em>',
+    loc_p1:       'Pension Wedding is located on Bundesstraße B 96 in Berlin-Wedding — a lively, diverse neighbourhood with excellent connections across the Berlin network.',
+    loc_p2:       'A U-Bahn line is right outside the front door, bringing you to the Berlin city centre in minutes.',
+    loc_t1:       'Right outside the front door',
+    loc_t2:       'Zoologischer Garten (City West)',
+    loc_t3:       'Friedrichstraße / Unter den Linden',
+    loc_t4:       'Alexanderplatz (City East)',
+    contact_tag:  'Contact &amp; Booking',
+    contact_h2:   'We look forward<br>to your <em>enquiry</em>',
+    contact_sub:  'Call us or send a message — we respond quickly and without fuss.',
+    contact_phone_label: 'Phone',
+    contact_email_label: 'Email',
+    lbl_vorname:  'First name', lbl_nachname: 'Last name',
+    lbl_email:    'Email',      lbl_tel:      'Phone (optional)',
+    lbl_anreise:  'Check-in',   lbl_abreise:  'Check-out',
+    lbl_zimmer:   'Room type',  lbl_personen: 'Number of guests',
+    lbl_nachricht:'Message (optional)',
+    ph_vorname:   'John',      ph_nachname: 'Smith',
+    ph_email:     'john@example.com', ph_tel: '+44 …',
+    ph_personen:  'e.g. 2',
+    ph_nachricht: 'Special requests, arrival time, trade fair, …',
+    opt0:'– please select –', opt1:'Single Room', opt2:'Double Room',
+    opt3:'Multi-bed Room', opt4:'Single Apartment', opt5:'Double Apartment', opt6:'Not sure yet',
+    submit_btn:   'Send enquiry',
+    pflicht:      '* Required fields',
+    success_h:    'Thank you for your enquiry!',
+    success_p:    'We will get back to you as soon as possible.',
+    success_sub:  'A confirmation has been sent to your email address.',
+    error_msg:    '⚠ Sending failed. Please write directly to',
+  }
+};
+
+let lang = 'de';
+
+function applyLang(l) {
+  lang = l;
+  const t = T[l];
+  /* Update all data-i18n elements */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  /* Placeholders */
+  const ph = { 'f-vorname': 'ph_vorname', 'f-nachname': 'ph_nachname',
+    'f-email': 'ph_email', 'f-tel': 'ph_tel',
+    'f-personen': 'ph_personen', 'f-nachricht': 'ph_nachricht' };
+  Object.entries(ph).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.placeholder = t[key];
+  });
+  /* Select options */
+  const sel = document.getElementById('f-zimmer');
+  if (sel) {
+    const opts = ['opt0','opt1','opt2','opt3','opt4','opt5','opt6'];
+    [...sel.options].forEach((o, i) => { if (t[opts[i]]) o.text = t[opts[i]]; });
+  }
+  /* Success / error messages */
+  const s = document.getElementById('form-success');
+  if (s) s.innerHTML = `<div style="font-size:2rem;margin-bottom:.5rem;">✓</div>
+    <strong>${t.success_h}</strong><br>${t.success_p}<br>
+    <span style="font-size:.8rem;color:#9a8f85;">${t.success_sub}</span>`;
+  /* Submit button text */
+  const btn = document.getElementById('submit-btn');
+  if (btn && !btn.disabled) btn.textContent = t.submit_btn;
+  /* Dynamic price numbers */
+  const heroPrice = document.getElementById('hero-price-num');
+  if (heroPrice) heroPrice.textContent = t.price_num;
+  const statPrice = document.getElementById('stat-price-num');
+  if (statPrice) statPrice.textContent = t.price_num;
+  const priceBig = document.getElementById('price-big-num');
+  if (priceBig) priceBig.innerHTML = l === 'de'
+    ? '50<sup style="font-size:2rem">€</sup>'
+    : 'from<br><span style="font-size:3.5rem">50€</span>';
+  /* Price table "ab" prefix */
+  document.querySelectorAll('.price-from').forEach(el => { el.textContent = t.price_from + ' '; });
+  /* Lang button */
+  document.getElementById('lang-flag').textContent  = l === 'de' ? '🇬🇧' : '🇩🇪';
+  document.getElementById('lang-label').textContent = l === 'de' ? 'EN' : 'DE';
+  /* html lang attr */
+  document.documentElement.lang = l;
+}
+
+function toggleLang() {
+  applyLang(lang === 'de' ? 'en' : 'de');
+}
+
+function closeImpressum(e) {
+  if (e.target === document.getElementById('impressum-modal')) {
+    document.getElementById('impressum-modal').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('impressum-modal').classList.remove('open');
+});
+
+/* ══════════════════════════════════════════════════════════
+   Web3Forms Access Key
+   → web3forms.com → E-Mail eingeben → Schlüssel kopieren
+   → hier einfügen, speichern, fertig (kostenlos, kein Konto)
+   ══════════════════════════════════════════════════════════ */
+const WEB3FORMS_KEY = 'IHR_SCHLUESSEL_HIER';
+
+/* Setup-Banner einblenden solange kein echter Key gesetzt ist */
+if (WEB3FORMS_KEY === 'IHR_SCHLUESSEL_HIER') {
+  document.getElementById('setup-banner').style.display = 'block';
+}
+
+/* Nav scrolled-Klasse */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* Scroll-Reveal */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* Abreise-Min an Anreise koppeln */
+document.getElementById('f-anreise').addEventListener('change', function () {
+  const ab = document.getElementById('f-abreise');
+  ab.min = this.value;
+  if (ab.value && ab.value <= this.value) ab.value = '';
+});
+
+/* ── Formular absenden ── */
+async function absenden() {
+  const btn     = document.getElementById('submit-btn');
+  const fields  = document.getElementById('form-fields');
+  const success = document.getElementById('form-success');
+  const error   = document.getElementById('form-error');
+  const v       = id => (document.getElementById(id).value || '').trim();
+
+  /* Pflichtfelder validieren */
+  const pflicht = ['f-vorname','f-nachname','f-email','f-anreise','f-abreise'];
+  let ok = true;
+  pflicht.forEach(id => {
+    const el = document.getElementById(id);
+    const leer = !el.value.trim();
+    el.style.borderColor = leer ? '#b35c3a' : '';
+    el.style.background  = leer ? '#fdf0ec' : '';
+    if (leer) {
+      ok = false;
+      el.addEventListener('input', () => {
+        el.style.borderColor = '';
+        el.style.background  = '';
+      }, { once: true });
+    }
+  });
+  if (!ok) {
+    document.getElementById('f-vorname').scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+
+  /* ── Fallback: kein Key gesetzt → E-Mail-Client öffnen ── */
+  if (WEB3FORMS_KEY === 'IHR_SCHLUESSEL_HIER') {
+    const betreff = encodeURIComponent(
+      `Buchungsanfrage: ${v('f-vorname')} ${v('f-nachname')} (${v('f-anreise')} – ${v('f-abreise')})`
+    );
+    const body = encodeURIComponent(
+      `Vorname:   ${v('f-vorname')}\n` +
+      `Nachname:  ${v('f-nachname')}\n` +
+      `E-Mail:    ${v('f-email')}\n` +
+      `Telefon:   ${v('f-tel') || '–'}\n` +
+      `Anreise:   ${v('f-anreise')}\n` +
+      `Abreise:   ${v('f-abreise')}\n` +
+      `Zimmer:    ${v('f-zimmer') || '–'}\n` +
+      `Personen:  ${v('f-personen') || '–'}\n\n` +
+      `Nachricht:\n${v('f-nachricht') || '–'}`
+    );
+    window.location.href =
+      `mailto:info@pension-wedding.de?subject=${betreff}&body=${body}`;
+    return;
+  }
+
+  /* ── Echter Versand über Web3Forms ── */
+  btn.textContent = 'Wird gesendet …';
+  btn.disabled    = true;
+  error.style.display = 'none';
+
+  const payload = {
+    access_key: WEB3FORMS_KEY,
+    subject: `Buchungsanfrage: ${v('f-vorname')} ${v('f-nachname')} (${v('f-anreise')} – ${v('f-abreise')})`,
+    from_name: `${v('f-vorname')} ${v('f-nachname')}`,
+    reply_to: v('f-email'),
+    /* Alle Felder als lesbare Tabelle */
+    message:
+      `Name:       ${v('f-vorname')} ${v('f-nachname')}\n` +
+      `E-Mail:     ${v('f-email')}\n` +
+      `Telefon:    ${v('f-tel') || '–'}\n` +
+      `Anreise:    ${v('f-anreise')}\n` +
+      `Abreise:    ${v('f-abreise')}\n` +
+      `Zimmertyp:  ${v('f-zimmer') || '–'}\n` +
+      `Personen:   ${v('f-personen') || '–'}\n\n` +
+      `Nachricht:\n${v('f-nachricht') || '–'}`,
+    botcheck: false
+  };
+
+  try {
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body:    JSON.stringify(payload)
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      fields.style.display  = 'none';
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      throw new Error(data.message || 'Unbekannter Fehler');
+    }
+  } catch (err) {
+    console.error(err);
+    error.style.display = 'block';
+    btn.textContent = 'Anfrage absenden';
+    btn.disabled    = false;
+  }
+}
+</script>
+</body>
+</html>
